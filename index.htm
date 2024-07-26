@@ -9,7 +9,7 @@
  html ,body{
   height: 100%;
 border: 0;
-margin: 0;
+margin: 0;   
  }
 
 
@@ -20,21 +20,27 @@ margin: 0;
     position: absolute;}
 </style>
 </head> 
-<body>
-      <div class="test1">test</div>
+<body onkeydown="keydown(event)" onkeyup="keyup(event)">
+      <div tabindex="1" class="test1">test</div>
 
 
 
     <script>
        var el = document.querySelector(".test1")
-       var vec = {x:10.1,y:10}
+       var vec = {x:0.,y:0}
 
        var apply = function(v) {
         el.style.left= (v.x)+'px';
         el.style.top= (v.y)+'px';
 
         setTimeout ( function(){
-         el.innerHTML = document.body.offsetHeight 
+
+          if(keys[39]) vec.x  = vec.x + Math.sign( vec.x)+0.001;
+          if(keys[37]) vec.x  =  vec.x - Math.sign( vec.x)+0.001;
+          if(keys[40]) vec.y  = vec.y + Math.sign( vec.y)+0.001;
+          if(keys[38]) vec.y  =  vec.y - Math.sign( vec.y)+0.001;
+          
+        
         
          if(vec.x > 0.0 && el.offsetLeft > document.body.offsetWidth - el.offsetWidth){
             vec.x=-1.0*vec.x;}
@@ -57,8 +63,27 @@ margin: 0;
       apply(newV)
       } ,30); }
 
+
+
       apply({x:0,y:0})
+
+      var keys = [];
+
+      keydown = function(event){
+
+        el.innerHTML = event.keyCode
+ 
+          keys[event.keyCode]  =  true; 
+
+          console.log(keys);
+        
     
+      }
+    keyup = function(event){ 
+
+      keys[event.keyCode]  =  false; 
+ }
+
 
     </script>
 </body>
