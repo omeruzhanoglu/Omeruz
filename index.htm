@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+<style>
+ html ,body{
+  height: 100%;
+border: 0;
+margin: 0;
+ }
+
+
+   .test1{
+    background-color: aqua;
+    width: 64px;
+    height: 64px;
+    position: absolute;}
+</style>
+</head> 
+<body>
+      <div class="test1">test</div>
+
+
+
+    <script>
+       var el = document.querySelector(".test1")
+       var vec = {x:10.1,y:10}
+
+       var apply = function(v) {
+        el.style.left= (v.x)+'px';
+        el.style.top= (v.y)+'px';
+
+        setTimeout ( function(){
+         el.innerHTML = document.body.offsetHeight 
+        
+         if(vec.x > 0.0 && el.offsetLeft > document.body.offsetWidth - el.offsetWidth){
+            vec.x=-1.0*vec.x;}
+
+         if(vec.x <0.0 && el.offsetLeft < 0){
+            vec.x= -1.0*vec.x}
+
+         
+         if(vec.y > 0.0 && el.offsetTop > document.body.offsetHeight - el.offsetHeight){
+            vec.y=-1.0*vec.y;}
+
+            if(vec.y <0.0 && el.offsetTop < 0){
+            vec.y= -1.0*vec.y}
+
+ 
+         
+        var newV= {x:v.x+vec.x,y:v.y+vec.y};
+            
+
+      apply(newV)
+      } ,30); }
+
+      apply({x:0,y:0})
+    
+
+    </script>
+</body>
+</html>
